@@ -23,6 +23,10 @@ namespace ncore
             static void LOG_ERR(const char *msg) { ncore::nlog::error(msg); }
             static void LOG_ERRF(const char *fmt, ...) {}
 
+#define EPERM 1
+#define EINVAL 22
+#define ENOTSUP 95
+
 #define RD03D_TX_BUF_MAX_LEN 18
 #define RD03D_RX_BUF_MAX_LEN 64
 #define RD03D_UART_BAUD_RATE 256000
@@ -660,9 +664,9 @@ namespace ncore
                         s32 ti = 0;
                         for (s32 i = 4; i < (data->rx_bytes - 2) && ti < RD03D_MAX_TARGETS; i += 8)
                         {
-                            data->targets[ti].x = (int16_t)(rx[i] | (rx[i + 1] << 8)) - 0x200;
-                            data->targets[ti].y = (int16_t)(rx[i + 2] | (rx[i + 3] << 8)) - 0x8000;
-                            data->targets[ti].v = (int16_t)(rx[i + 4] | (rx[i + 5] << 8)) - 0x10;
+                            data->targets[ti].x = (s16)(rx[i] | (rx[i + 1] << 8)) - 0x200;
+                            data->targets[ti].y = (s16)(rx[i + 2] | (rx[i + 3] << 8)) - 0x8000;
+                            data->targets[ti].v = (s16)(rx[i + 4] | (rx[i + 5] << 8)) - 0x10;
                             // data->targets[ti].distance = (uint16_t)(rx[i + 6] | (rx[i + 7] << 8));
                         }
                     }
@@ -696,7 +700,7 @@ namespace ncore
 
                 data->tx_bytes    = 0;
                 data->tx_data_len = 0;
-                memset(data->tx_data, 0, RD03D_TX_BUF_MAX_LEN);
+                g_memset(data->tx_data, 0, RD03D_TX_BUF_MAX_LEN);
                 data->tx_data[0] = RD03D_CMD_HEAD[0];
                 data->tx_data[1] = RD03D_CMD_HEAD[1];
                 data->tx_data[2] = RD03D_CMD_HEAD[2];

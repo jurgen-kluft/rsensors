@@ -7,6 +7,7 @@
 
 #include "ccore/c_memory.h"
 #include "ccore/c_printf.h"
+#include "ccore/c_stream.h"
 
 #ifdef TARGET_ARDUINO
 #    include "Arduino.h"
@@ -45,7 +46,8 @@ namespace ncore
 
             struct hsp24_t
             {
-                Stream                 *mStream;
+                reader_t               *mStreamReader;
+                writer_t               *mStreamWriter;
                 byte                    mSerialReceiveBuffer[SERIAL_RCV_BUFFER_SIZE];
                 nserial::frame_data_t  *mFrameData;
                 nserial::frame_reader_t mFrameReader;
@@ -480,10 +482,10 @@ namespace ncore
                     gate[i] = 0xFF;
             }
 
-            void FirmwareVersion::toString(char* outStr, s32 outStrSize)  
+            void FirmwareVersion::toString(char *outStr, s32 outStrSize)
             {
                 // Output format: "1.07.22091516"
-                ncore::snprintf(outStr, outStrSize, "%u.%2u.%x", va_t(major>>8), va_t(major&0xFF), va_t(minor));
+                ncore::snprintf(outStr, outStrSize, "%u.%2u.%x", va_t(major >> 8), va_t(major & 0xFF), va_t(minor));
             }
 
             void initRadarStatus(RadarStatus &status)
@@ -509,7 +511,11 @@ namespace ncore
                 status.photosensitive = 0xFF;
             }
 
-            void begin(hsp24_t *sensor, Stream *serial) { sensor->mStream = serial; }
+            void begin(hsp24_t *sensor, reader_t *serial_reader, writer_t *serial_writer)
+            {
+                sensor->mStreamReader = serial_reader;
+                sensor->mStreamWriter = serial_writer;
+            }
 
             EResult getStatus(hsp24_t *sensor, RadarStatus &status)
             {
@@ -565,20 +571,20 @@ namespace ncore
 
             EResult enableConfigMode(hsp24_t *sensor)
             {
-                u8  outBuffer[64];
-                s32 outLength = encodeEnableConfiguration(outBuffer);
-                const u16 cmd = outBuffer[FRAME_INTRAFRAME_CMD_OFFSET];
-                sensor->mStream->write(outBuffer, outLength);
+                u8        outBuffer[64];
+                s32       outLength = encodeEnableConfiguration(outBuffer);
+                const u16 cmd       = outBuffer[FRAME_INTRAFRAME_CMD_OFFSET];
+                sensor->mStreamWriter->write(outBuffer, outLength);
                 nserial::frame_result_t frameResult;
                 return waitForAck(sensor, cmd, frameResult);
             }
 
             EResult disableConfigMode(hsp24_t *sensor)
             {
-                u8  outBuffer[64];
+                u8        outBuffer[64];
                 const s32 outLength = encodeDisableConfiguration(outBuffer);
-                const u16 cmd = outBuffer[FRAME_INTRAFRAME_CMD_OFFSET];
-                sensor->mStream->write(outBuffer, outLength);
+                const u16 cmd       = outBuffer[FRAME_INTRAFRAME_CMD_OFFSET];
+                sensor->mStreamWriter->write(outBuffer, outLength);
                 nserial::frame_result_t frameResult;
                 return waitForAck(sensor, cmd, frameResult);
             }
@@ -589,9 +595,9 @@ namespace ncore
                 if (result != Success)
                     return result;
 
-                u8  outBuffer[64];
+                u8        outBuffer[64];
                 const s32 outLength = encodeReadParameters(outBuffer);
-                sensor->mStream->write(outBuffer, outLength);
+                sensor->mStreamWriter->write(outBuffer, outLength);
                 const u16 cmd = outBuffer[FRAME_INTRAFRAME_CMD_OFFSET];
 
                 nserial::frame_result_t frameResult;
@@ -615,15 +621,15 @@ namespace ncore
                 return result;
             }
 
-            EResult getFirmwareVersion(hsp24_t* sensor, FirmwareVersion& version)
+            EResult getFirmwareVersion(hsp24_t *sensor, FirmwareVersion &version)
             {
-                u8  outBuffer[64];
+                u8        outBuffer[64];
                 const s32 outLength = encodeReadFirmwareVersion(outBuffer);
-                sensor->mStream->write(outBuffer, outLength);
+                sensor->mStreamWriter->write(outBuffer, outLength);
                 const u16 cmd = outBuffer[FRAME_INTRAFRAME_CMD_OFFSET];
 
                 nserial::frame_result_t frameResult;
-                EResult result = waitForAck(sensor, cmd, frameResult);
+                EResult                 result = waitForAck(sensor, cmd, frameResult);
                 if (result != Success)
                     return result;
 
@@ -631,7 +637,7 @@ namespace ncore
                 return Success;
             }
 
-            EResult setMode(hsp24_t* sensor, ERadarMode mode)
+            EResult setMode(hsp24_t *sensor, ERadarMode mode)
             {
                 EResult result = enableConfigMode(sensor);
                 if (result != Success)
@@ -647,7 +653,7 @@ namespace ncore
                 {
                     outLength = encodeCloseEngineeringMode(outBuffer);
                 }
-                sensor->mStream->write(outBuffer, outLength);
+                sensor->mStreamWriter->write(outBuffer, outLength);
                 const u16 cmd = outBuffer[FRAME_INTRAFRAME_CMD_OFFSET];
 
                 nserial::frame_result_t frameResult;

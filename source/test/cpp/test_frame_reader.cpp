@@ -1,5 +1,7 @@
-#include "rdno_core/c_target.h"
 #include "ccore/c_allocator.h"
+#include "ccore/c_stream.h"
+
+#include "rdno_core/c_target.h"
 #include "rdno_sensors/c_frame_reader.h"
 
 #include "cunittest/cunittest.h"
@@ -9,7 +11,7 @@ using namespace ncore::nserial;
 
 UNITTEST_SUITE_BEGIN(frame_reader)
 {
-    class TestStream : public Stream
+    class TestStream : public reader_t
     {
     public:
         const byte* mTestData;
@@ -19,30 +21,7 @@ UNITTEST_SUITE_BEGIN(frame_reader)
 
         virtual ~TestStream() {}
 
-        virtual ncore::s32 available()
-        {
-            s32 count = mTestByteSize - mTestByteCursor;
-            if (mReadSize > 0)
-            {
-                if (count == 0)
-                    return 0;
-                if (count > mReadSize)
-                    count = count % mReadSize;
-                if (count == 0)
-                    count = 1;
-            }
-            return count;
-        }
-        virtual ncore::s32 read()
-        {
-            if (mTestByteCursor < mTestByteSize)
-            {
-                return mTestData[mTestByteCursor++];
-            }
-            return -1;
-        }
-
-        virtual ncore::s32 readBytes(ncore::u8* buffer, ncore::s32 length)
+        virtual ncore::s64 v_read(ncore::u8* buffer, ncore::s64 length)
         {
             s32 bytesRead = 0;
             while (bytesRead < length && mTestByteCursor < mTestByteSize)
@@ -52,12 +31,6 @@ UNITTEST_SUITE_BEGIN(frame_reader)
                 ++bytesRead;
             }
             return bytesRead;
-        }
-
-        virtual ncore::s32 write(const ncore::u8* buffer, ncore::s32 length)
-        {
-            // Not needed for testing
-            return length;
         }
     };
 
