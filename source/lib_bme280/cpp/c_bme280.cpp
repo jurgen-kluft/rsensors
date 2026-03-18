@@ -587,8 +587,8 @@ namespace nbme280
 
 }  // namespace nbme280
 
-#    include "rdno_sensors/c_bme280.h"
-#    include "rdno_core/c_malloc.h"
+#    include "lib_bme280/c_bme280.h"
+#    include "rcore/c_malloc.h"
 
 namespace ncore
 {
@@ -652,7 +652,7 @@ namespace ncore
 
 #else
 
-#    include "rdno_sensors/c_bme280.h"
+#    include "rsensors/c_bme280.h"
 
 namespace ncore
 {

@@ -1,6 +1,6 @@
-#ifndef __RDNO_SENSORS_HMMD_H__
-#define __RDNO_SENSORS_HMMD_H__
-#include "rdno_core/c_target.h"
+#ifndef __ARDUINO_SENSORS_HMMD_H__
+#define __ARDUINO_SENSORS_HMMD_H__
+#include "rcore/c_target.h"
 #ifdef USE_PRAGMA_ONCE
 #    pragma once
 #endif
@@ -16,4 +16,4 @@ namespace ncore
     }  // namespace nsensors
 }  // namespace ncore
 
-#endif  // __RDNO_SENSORS_HMMD_H__
+#endif  // __ARDUINO_SENSORS_HMMD_H__

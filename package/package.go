@@ -1,17 +1,17 @@
-package rdno_sensors
+package rsensors
 
 import (
 	denv "github.com/jurgen-kluft/ccode/denv"
 	cunittest "github.com/jurgen-kluft/cunittest/package"
-	rdno_core "github.com/jurgen-kluft/rdno_core/package"
+	rcore "github.com/jurgen-kluft/rcore/package"
 )
 
 const (
 	repo_path = "github.com\\jurgen-kluft"
-	repo_name = "rdno_sensors"
+	repo_name = "rsensors"
 )
 
-// rdno_sensors is a  package for Arduino projects that holds a
+// rsensors is a  package for Arduino projects that holds a
 // couple of sensor objects, namely:
 // - BME280 (temperature, humidity, pressure)
 // - BH1750 (light sensor)
@@ -21,7 +21,7 @@ func GetPackage() *denv.Package {
 
 	// dependencies
 	cunittestpkg := cunittest.GetPackage()
-	corepkg := rdno_core.GetPackage()
+	corepkg := rcore.GetPackage()
 
 	// main package
 	mainpkg := denv.NewPackage(repo_path, repo_name)
@@ -31,20 +31,55 @@ func GetPackage() *denv.Package {
 	// TODO, make a library per sensor ?
 
 	// main library
-	mainlib := denv.SetupCppLibProject(mainpkg, name)
-	mainlib.AddDependencies(corepkg.GetMainLib())
+	mainLib := denv.SetupCppLibProject(mainpkg, name)
+	mainLib.AddDependencies(corepkg.GetMainLib())
 
 	// test library
-	testlib := denv.SetupCppTestLibProject(mainpkg, name)
-	testlib.AddDependencies(corepkg.GetTestLib())
+	mainTestLib := denv.SetupCppTestLibProject(mainpkg, name)
+	mainTestLib.AddDependencies(corepkg.GetTestLib())
+
+	// BH1750 library
+	bh1750Lib := denv.SetupCppLibraryForArduinoEsp32(mainpkg, "lib_bh1750", "bh1750")
+	bh1750Lib.AddDependencies(corepkg.GetMainLib())
+
+	// BME280 library
+	bme280Lib := denv.SetupCppLibraryForArduinoEsp32(mainpkg, "lib_bme280", "bme280")
+	bme280Lib.AddDependencies(corepkg.GetMainLib())
+
+	// SCD41 library
+	scd41Lib := denv.SetupCppLibraryForArduinoEsp32(mainpkg, "lib_scd41", "scd41")
+	scd41Lib.AddDependencies(corepkg.GetMainLib())
+
+	// RD03D library
+	rd03dLib := denv.SetupCppLibraryForArduinoEsp32(mainpkg, "lib_rd03d", "rd03d")
+	rd03dLib.AddDependencies(corepkg.GetMainLib())
+
+	// HSP24 library
+	hsp24Lib := denv.SetupCppLibraryForArduinoEsp32(mainpkg, "lib_hsp24", "hsp24")
+	hsp24Lib.AddDependencies(corepkg.GetMainLib())
+
+	// HMMD library
+	hmmdLib := denv.SetupCppLibraryForArduinoEsp32(mainpkg, "lib_hmmd", "hmmd")
+	hmmdLib.AddDependencies(corepkg.GetMainLib())
+	hmmdTestLib := denv.SetupCppTestLibProject(mainpkg, "hmmd")
+	hmmdTestLib.AddDependencies(corepkg.GetTestLib())
+	hmmdTestLib.AddDependency(mainTestLib)
 
 	// unittest project
 	maintest := denv.SetupCppTestProject(mainpkg, name)
 	maintest.AddDependencies(cunittestpkg.GetMainLib())
-	maintest.AddDependency(testlib)
+	maintest.AddDependency(mainTestLib)
 
-	mainpkg.AddMainLib(mainlib)
-	mainpkg.AddTestLib(testlib)
+	mainpkg.AddMainLib(mainLib)
+	mainpkg.AddLibrary(bh1750Lib)
+	mainpkg.AddLibrary(bme280Lib)
+	mainpkg.AddLibrary(scd41Lib)
+	mainpkg.AddLibrary(rd03dLib)
+	mainpkg.AddLibrary(hsp24Lib)
+	mainpkg.AddLibrary(hmmdLib)
+
+	mainpkg.AddTestLib(mainTestLib)
 	mainpkg.AddUnittest(maintest)
+
 	return mainpkg
 }

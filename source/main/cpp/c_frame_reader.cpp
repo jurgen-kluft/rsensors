@@ -1,11 +1,11 @@
-#include "rdno_core/c_log.h"
-#include "rdno_core/c_timer.h"
-#include "rdno_core/c_serial.h"
+#include "rcore/c_log.h"
+#include "rcore/c_timer.h"
+#include "rcore/c_serial.h"
 
 #include "ccore/c_memory.h"
 #include "ccore/c_stream.h"
 
-#include "rdno_sensors/c_frame_reader.h"
+#include "rsensors/c_frame_reader.h"
 
 #ifdef TARGET_ARDUINO
 #    include "Arduino.h"

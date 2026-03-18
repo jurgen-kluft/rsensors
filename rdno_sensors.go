@@ -2,7 +2,7 @@ package main
 
 import (
 	ccode "github.com/jurgen-kluft/ccode"
-	cpkg "github.com/jurgen-kluft/rdno_sensors/package"
+	cpkg "github.com/jurgen-kluft/rsensors/package"
 )
 
 func main() {

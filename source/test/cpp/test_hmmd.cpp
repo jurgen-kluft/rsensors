@@ -1,5 +1,5 @@
-#include "rdno_core/c_target.h"
-#include "rdno_sensors/c_hmmd.h"
+#include "rcore/c_target.h"
+#include "lib_hmmd/c_hmmd.h"
 
 #include "cunittest/cunittest.h"
 

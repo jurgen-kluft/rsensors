@@ -1,11 +1,11 @@
-#ifndef __RDNO_SENSORS_SEEED_HSP24_H__
-#define __RDNO_SENSORS_SEEED_HSP24_H__
-#include "rdno_core/c_target.h"
+#ifndef __ARDUINO_SENSORS_SEEED_HSP24_H__
+#define __ARDUINO_SENSORS_SEEED_HSP24_H__
+#include "rcore/c_target.h"
 #ifdef USE_PRAGMA_ONCE
 #    pragma once
 #endif
 
-#include "rdno_sensors/c_frame_reader.h"
+#include "rsensors/c_frame_reader.h"
 
 namespace ncore
 {
@@ -150,4 +150,4 @@ namespace ncore
     }  // namespace nsensors
 }  // namespace ncore
 
-#endif  // __RDNO_SENSORS_RD03D_H__
+#endif  // __ARDUINO_SENSORS_RD03D_H__

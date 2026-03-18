@@ -1,8 +1,8 @@
 #include "ccore/c_allocator.h"
 #include "ccore/c_stream.h"
 
-#include "rdno_core/c_target.h"
-#include "rdno_sensors/c_frame_reader.h"
+#include "rcore/c_target.h"
+#include "rsensors/c_frame_reader.h"
 
 #include "cunittest/cunittest.h"
 

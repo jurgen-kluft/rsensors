@@ -1,5 +1,5 @@
-#include "rdno_core/c_target.h"
-#include "rdno_sensors/c_environment.h"
+#include "rcore/c_target.h"
+#include "rsensors/c_environment.h"
 
 #include "cunittest/cunittest.h"
 

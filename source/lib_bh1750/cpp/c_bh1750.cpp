@@ -1,5 +1,5 @@
-#include "rdno_sensors/c_bh1750.h"
-#include "rdno_core/c_malloc.h"
+#include "lib_bh1750/c_bh1750.h"
+#include "rcore/c_malloc.h"
 
 #ifdef TARGET_ARDUINO
 

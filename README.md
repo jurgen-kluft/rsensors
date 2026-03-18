@@ -1,4 +1,4 @@
-# rdno_sensors
+# rsensors
 
 Arduino Sensor Library supporting the following sensors:
 
@@ -8,7 +8,7 @@ Arduino Sensor Library supporting the following sensors:
 - [x] HMMD (Human mmWave sensor)
 - [x] RD03D (AI Thinker mmWave sensor)
 - [x] HSP24 (Human Static Presence sensor (Xiao Seeed))
-- [x] MG58F18 (Radar sensor from MagorTek)
+- [ ] MG58F18 (Radar sensor from MagorTek (cannot make it work))
 
 ## Frame reader
 

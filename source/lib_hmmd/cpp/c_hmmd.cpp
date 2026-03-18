@@ -1,8 +1,8 @@
-#include "rdno_core/c_serial.h"
-#include "rdno_core/c_str.h"
+#include "rcore/c_serial.h"
+#include "rcore/c_str.h"
 #include "ccore/c_memory.h"
 
-#include "rdno_sensors/c_hmmd.h"
+#include "lib_hmmd/c_hmmd.h"
 
 namespace ncore
 {
