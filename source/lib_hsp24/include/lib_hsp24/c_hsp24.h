@@ -15,6 +15,8 @@ namespace ncore
     {
         namespace nseeed
         {
+            // Human Static Presence Sensor (HSP24) from Seeed Studio
+
             struct hsp24_t;
             hsp24_t* create_hsp24(ncore::reader_t* serial_reader);
 

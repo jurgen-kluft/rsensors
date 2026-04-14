@@ -1,4 +1,4 @@
-#include "rsensors/c_mg58f18.h"
+#include "lib_mg58f18/c_mg58f18.h"
 #include "rcore/c_gpio.h"
 #include "rcore/c_timer.h"
 #include "rcore/c_serial.h"

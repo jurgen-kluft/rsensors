@@ -57,6 +57,7 @@ func GetPackage() *denv.Package {
 	// HSP24 library
 	hsp24Lib := denv.SetupCppLibraryForArduinoEsp32(mainpkg, "lib_hsp24", "hsp24")
 	hsp24Lib.AddDependencies(corepkg.GetMainLib())
+	hsp24Lib.AddDependency(mainLib)
 
 	// HMMD library
 	hmmdLib := denv.SetupCppLibraryForArduinoEsp32(mainpkg, "lib_hmmd", "hmmd")
@@ -64,6 +65,10 @@ func GetPackage() *denv.Package {
 	hmmdTestLib := denv.SetupCppTestLibProject(mainpkg, "hmmd")
 	hmmdTestLib.AddDependencies(corepkg.GetTestLib())
 	hmmdTestLib.AddDependency(mainTestLib)
+
+	// mg58f18 library
+	mg58f18Lib := denv.SetupCppLibraryForArduinoEsp32(mainpkg, "lib_mg58f18", "mg58f18")
+	mg58f18Lib.AddDependencies(corepkg.GetMainLib())
 
 	// unittest project
 	maintest := denv.SetupCppTestProject(mainpkg, name)
@@ -77,6 +82,7 @@ func GetPackage() *denv.Package {
 	mainpkg.AddLibrary(rd03dLib)
 	mainpkg.AddLibrary(hsp24Lib)
 	mainpkg.AddLibrary(hmmdLib)
+	mainpkg.AddLibrary(mg58f18Lib)
 
 	mainpkg.AddTestLib(mainTestLib)
 	mainpkg.AddUnittest(maintest)
