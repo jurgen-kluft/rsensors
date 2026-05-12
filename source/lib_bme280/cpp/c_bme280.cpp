@@ -588,7 +588,7 @@ namespace nbme280
 }  // namespace nbme280
 
 #    include "lib_bme280/c_bme280.h"
-#    include "rcore/c_malloc.h"
+#    include "rcore/c_system.h"
 
 namespace ncore
 {

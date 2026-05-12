@@ -2511,7 +2511,7 @@ namespace nscd4x
 }  // namespace nscd4x
 
 #    include "lib_scd41/c_scd41.h"
-#    include "rcore/c_malloc.h"
+#    include "rcore/c_system.h"
 
 namespace ncore
 {
@@ -2523,7 +2523,7 @@ namespace ncore
         {
             if (scd4x == nullptr)
             {
-                scd4x = nsystem::construct<nscd4x::SensirionI2cScd4x>();
+                scd4x = new nscd4x::SensirionI2cScd4x();
                 if (scd4x != nullptr)
                 {
                     scd4x->begin(Wire);

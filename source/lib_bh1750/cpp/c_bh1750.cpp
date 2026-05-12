@@ -1,5 +1,5 @@
+#include "rcore/c_system.h"
 #include "lib_bh1750/c_bh1750.h"
-#include "rcore/c_malloc.h"
 
 #ifdef TARGET_ARDUINO
 
@@ -355,7 +355,7 @@ namespace ncore
         {
             if (bh1750 == nullptr)
             {
-                bh1750 = nsystem::construct<nbh1750::BH1750>();
+                bh1750 = new nbh1750::BH1750();
                 bh1750->initialize(i2c_address);
                 bh1750_active = bh1750->begin();
             }

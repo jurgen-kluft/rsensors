@@ -1,7 +1,7 @@
 #include "rcore/c_log.h"
 #include "rcore/c_timer.h"
-#include "rcore/c_malloc.h"
 #include "rcore/c_serial.h"
+#include "rcore/c_system.h"
 #include "rsensors/c_frame_reader.h"
 #include "lib_hsp24/c_hsp24.h"
 
