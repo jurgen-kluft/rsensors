@@ -149,6 +149,8 @@ namespace ncore
             }
 
         }  // namespace nrd03d
+
+        nrd03d::sensor_t g_rd03d_sensor;
     }  // namespace nsensors
 }  // namespace ncore
 

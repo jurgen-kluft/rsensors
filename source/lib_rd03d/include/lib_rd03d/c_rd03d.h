@@ -31,6 +31,11 @@ namespace ncore
             bool getTarget(sensor_t& sensor, s8 i, target_t& t);  // get target i (0..2)
 
         }  // namespace nrd03d
+
+        extern nrd03d::sensor_t g_rd03d_sensor;
+        static inline void      initRD03D(u8 rxPin, u8 txPin) { nrd03d::begin(g_rd03d_sensor, rxPin, txPin); }
+        static inline bool      updateRD03D() { return nrd03d::update(g_rd03d_sensor); }
+        static inline bool      getRD03DTarget(s8 i, nrd03d::target_t& t) { return nrd03d::getTarget(g_rd03d_sensor, i, t); }
     }  // namespace nsensors
 }  // namespace ncore
 
