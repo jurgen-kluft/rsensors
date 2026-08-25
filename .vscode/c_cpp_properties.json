@@ -1,0 +1,30 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/Users/obnosis3/dev.go/src/github.com/jurgen-kluft/**",
+                "/Users/obnosis3/dev.go/src/github.com/jurgen-kluft/ccore/**",
+                "/Users/obnosis3/dev.go/src/github.com/jurgen-kluft/cunittest/**",
+                "/Users/obnosis3/dev.go/src/github.com/jurgen-kluft/rcore/**",
+                "/Users/obnosis3/dev.go/src/github.com/jurgen-kluft/rwifi/**",
+                "/Users/obnosis3/dev.go/src/github.com/jurgen-kluft/rlcd/**",
+                "/Users/obnosis3/dev.go/src/github.com/jurgen-kluft/rsensors/**"
+            ],
+            "defines": [
+                "TARGET_DEBUG"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "macos-clang-arm64",
+            "compilerPathInCppPropertiesJson": "/usr/bin/clang",
+            "mergeConfigurations": false,
+            "recursiveIncludes": {},
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}
