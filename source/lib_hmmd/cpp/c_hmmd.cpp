@@ -75,7 +75,7 @@ namespace ncore
         s32  hmmdRxBufferWritePos = 0;
 
         // Read data from the HMMD sensor in 'report' mode
-        bool readHMMD2(s8* outDetection, u16* outDistanceInCm)
+        bool readHMMD2(i32* outDetection, i32* outDistanceInCm)
         {
             // Drain data from Serial2
             s32 available = nserialx::available(nserialx::SERIAL2);
@@ -149,7 +149,7 @@ namespace ncore
         }
 
         // Read data from the HMMD sensor in 'normal' mode
-        bool readHMMD(s8* outDetection, u16* outDistanceInCm)
+        bool readHMMD(i32* outDetection, i32* outDistanceInCm)
         {
             char line[128];
             g_memset(line, 0, sizeof(line));
