@@ -10,6 +10,7 @@ Arduino Sensor Library supporting the following sensors:
 - [x] HSP24 (Human Static Presence sensor (Xiao Seeed))
 - [ ] MG58F18 (Radar sensor from MagorTek (cannot make it work))
 - [x] SC7A20H (3-axis accelerometer)
+- [ ] ICM20948 (9-axis IMU sensor)
 
 ## Frame reader
 
